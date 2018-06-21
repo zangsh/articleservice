@@ -1,14 +1,13 @@
 package com.czb.article.config;
 
-import com.czb.article.util.ResultUtils;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Slf4j
+import com.czb.article.util.ResultUtils;
+
 @ControllerAdvice
 @ResponseBody
 public class GlobleExceptionHandler {

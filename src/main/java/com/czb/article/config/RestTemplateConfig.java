@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import com.czb.article.config.properties.HttpConfigProperties;
 import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
@@ -30,8 +29,7 @@ import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-
-import lombok.extern.slf4j.Slf4j;
+import com.czb.article.config.properties.HttpConfigProperties;
 
 /**
  * 配置restTemplate
