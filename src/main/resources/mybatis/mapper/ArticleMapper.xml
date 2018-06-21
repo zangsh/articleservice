@@ -15,6 +15,20 @@
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
 
+  <resultMap id="ArticleResponseMap" type="ArticleResponse" >
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="title" property="title" jdbcType="VARCHAR" />
+      <result column="digest" property="digest" jdbcType="VARCHAR" />
+      <result column="image_addr" property="imageAddr" jdbcType="VARCHAR" />
+      <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <sql id="articleResponse">
+      id,title,digest,image_addr,keywords,create_time,content
+  </sql>
+
   <insert id="addArticle" parameterType="Map">
       INSERT INTO article_article(
       title,
@@ -40,4 +54,8 @@
       #{params.content}
       )
   </insert>
+
+  <select id="getArticleByPage"  parameterType="Map" resultMap="ArticleResponseMap">
+      SELECT <include refid="articleResponse"/> FROM article_article WHERE delete_flag = 0
+  </select>
 </mapper>
