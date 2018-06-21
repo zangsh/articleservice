@@ -3,7 +3,6 @@ package com.czb.article.service.impl;
 import com.czb.article.bean.po.User;
 import com.czb.article.dao.UserMapper;
 import com.czb.article.service.UserService;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

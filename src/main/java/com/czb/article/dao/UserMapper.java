@@ -6,5 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface UserMapper {
-    List<User> getUserByNumSize(@Param("pageNum") int pageNum,@Param("pageSize") int pageSize);
+
+    List<User> getUserByNumSize(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize);
 }

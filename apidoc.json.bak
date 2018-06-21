@@ -3,5 +3,5 @@
   "version":"1.0.0",
   "description": "文章管理接口文档",
   "title": "文章管理api",
-  "url" : "https://localhost:8080"
+  "url" : "https://api.github.com/v1"
 }
