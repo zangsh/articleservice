@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * <p>Title: ArticleLabel.java</p>
- * <p>Description: 文章标签</p>
+ * <p>Title: Label.java</p>
+ * <p>Description: 标签</p>
  * @author zhxun
  * @date 2018年6月21日下午3:17:34
  */
-public class ArticleLabel implements Serializable {
+public class Label implements Serializable {
 	
 	/**id*/
     private String id;
