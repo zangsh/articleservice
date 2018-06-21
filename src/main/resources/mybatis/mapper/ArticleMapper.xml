@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.czb.article.dao.ArticleArticleMapper" >
-  <resultMap id="BaseResultMap" type="com.czb.article.bean.po.ArticleArticle" >
+<mapper namespace="com.czb.article.dao.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.czb.article.bean.po.Article" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="digest" property="digest" jdbcType="VARCHAR" />
@@ -15,4 +15,29 @@
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
 
+  <insert id="addArticle" parameterType="Map">
+      INSERT INTO article_article(
+      title,
+      digest,
+      image_addr,
+      keywords,
+      create_time,
+      create_user,
+      update_time,
+      update_user,
+      delete_flag,
+      content
+      ) VALUES (
+      #{params.title},
+      #{params.digest},
+      #{params.image_addr},
+      #{params.keywords},
+      NOW(),
+      #{params.create_user},
+      NOW(),
+      #{params.update_user},
+      0,
+      #{params.content}
+      )
+  </insert>
 </mapper>

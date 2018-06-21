@@ -25,7 +25,7 @@ public class ResultUtils {
      * @return
      */
     public static String OK(){
-        return OK(null);
+        return OK(OK_MSG);
     }
 
     public static String OK(String msg){
@@ -52,7 +52,7 @@ public class ResultUtils {
      * @return
      */
     public static String ERROR(){
-        return ERROR(null);
+        return ERROR(ERROR_MSG);
     }
 
     public static String ERROR(String msg){
