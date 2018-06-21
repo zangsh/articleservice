@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.czb.article.dao.ArticleLabelMapper" >
+
+  <resultMap id="BaseResultMap" type="com.czb.article.bean.po.ArticleLabel" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+  </resultMap>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update article_label set delete_flag = 1 where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.czb.article.bean.po.ArticleLabel" >
+    insert into article_label (id, `name`, `type`, 
+      create_user, create_time, update_user, 
+      update_time, delete_flag)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{createUser,jdbcType=VARCHAR}, now(), #{updateUser,jdbcType=VARCHAR}, 
+      now(), 0)
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.czb.article.bean.po.ArticleLabel" >
+    update article_label
+    set `name` = #{name,jdbcType=VARCHAR},
+      	update_user = #{updateUser,jdbcType=VARCHAR},
+      	update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, `name`, `type`, create_user, create_time, update_user, update_time, delete_flag
+    from article_label
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, `name`, `type`, create_user, create_time, update_user, update_time, delete_flag
+    from article_label
+    where delete_flag = 0
+  </select>
+  
+  <select id="selectPage" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, `name`, `type`, create_user, create_time, update_user, update_time, delete_flag
+    from article_label
+    where delete_flag = 0
+    <if test="name != null and name != ''">
+    	and `name` like CONCAT(CONCAT('%',#{name},'%'))
+    </if>
+  </select>
+  
+  <select id="selectRandom" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT * 
+	FROM `czb_user` AS t1 JOIN (SELECT ROUND(RAND() * ((SELECT MAX(id) FROM `czb_user`)-(SELECT MIN(id) FROM `czb_user`))+(SELECT MIN(id) FROM `czb_user`)) AS id) AS t2 
+	WHERE t1.id >= t2.id 
+	ORDER BY t1.id LIMIT #{size};
+  </select>
+</mapper>
