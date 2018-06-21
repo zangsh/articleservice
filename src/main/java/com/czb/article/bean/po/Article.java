@@ -3,12 +3,16 @@ package com.czb.article.bean.po;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ArticleLabelArticle implements Serializable {
+public class Article implements Serializable {
     private Integer id;
 
-    private Integer labelId;
+    private String title;
 
-    private Integer articleId;
+    private String digest;
+
+    private String imageAddr;
+
+    private String keywords;
 
     private Date createTime;
 
@@ -20,6 +24,8 @@ public class ArticleLabelArticle implements Serializable {
 
     private String deleteFlag;
 
+    private String content;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -30,20 +36,36 @@ public class ArticleLabelArticle implements Serializable {
         this.id = id;
     }
 
-    public Integer getLabelId() {
-        return labelId;
+    public String getTitle() {
+        return title;
     }
 
-    public void setLabelId(Integer labelId) {
-        this.labelId = labelId;
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 
-    public Integer getArticleId() {
-        return articleId;
+    public String getDigest() {
+        return digest;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setDigest(String digest) {
+        this.digest = digest == null ? null : digest.trim();
+    }
+
+    public String getImageAddr() {
+        return imageAddr;
+    }
+
+    public void setImageAddr(String imageAddr) {
+        this.imageAddr = imageAddr == null ? null : imageAddr.trim();
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords == null ? null : keywords.trim();
     }
 
     public Date getCreateTime() {
@@ -86,6 +108,14 @@ public class ArticleLabelArticle implements Serializable {
         this.deleteFlag = deleteFlag == null ? null : deleteFlag.trim();
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -93,13 +123,16 @@ public class ArticleLabelArticle implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", labelId=").append(labelId);
-        sb.append(", articleId=").append(articleId);
+        sb.append(", title=").append(title);
+        sb.append(", digest=").append(digest);
+        sb.append(", imageAddr=").append(imageAddr);
+        sb.append(", keywords=").append(keywords);
         sb.append(", createTime=").append(createTime);
         sb.append(", createUser=").append(createUser);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", updateUser=").append(updateUser);
         sb.append(", deleteFlag=").append(deleteFlag);
+        sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

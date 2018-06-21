@@ -1,14 +1,24 @@
 package com.czb.article.controller;
 
+import com.czb.article.service.ArticleService;
+import com.czb.article.util.FastJsonUtils;
 import com.czb.article.util.ResultUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * Created by zangsh on 2018/6/21.
  */
+@Slf4j
 @RestController
 @RequestMapping(value = "/article",method = RequestMethod.POST)
 public class ArticleController {
+    @Autowired
+    private ArticleService articleService;
 
     /**
      * @api {post} /article/addArticle 新增文章 addArticle
@@ -47,6 +57,13 @@ public class ArticleController {
     @ResponseBody
     @RequestMapping(value = "/addArticle")
     public String addArticle(@RequestBody String json){
+        log.info("addArticle参数：" + json);
+        Map<String,Object> params = FastJsonUtils.stringToMap(json);
+        if(!StringUtils.isEmpty(params.get("token"))){
+            params.put("create_user","1");
+            params.put("update_user","1");
+        }
+        articleService.addArticle(params);
         return ResultUtils.OK();
     }
 }

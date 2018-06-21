@@ -3,10 +3,10 @@ package com.czb.article.bean.po;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ArticleClassifyArticle implements Serializable {
+public class LabelArticle implements Serializable {
     private Integer id;
 
-    private Integer classifyId;
+    private Integer labelId;
 
     private Integer articleId;
 
@@ -30,12 +30,12 @@ public class ArticleClassifyArticle implements Serializable {
         this.id = id;
     }
 
-    public Integer getClassifyId() {
-        return classifyId;
+    public Integer getLabelId() {
+        return labelId;
     }
 
-    public void setClassifyId(Integer classifyId) {
-        this.classifyId = classifyId;
+    public void setLabelId(Integer labelId) {
+        this.labelId = labelId;
     }
 
     public Integer getArticleId() {
@@ -93,7 +93,7 @@ public class ArticleClassifyArticle implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", classifyId=").append(classifyId);
+        sb.append(", labelId=").append(labelId);
         sb.append(", articleId=").append(articleId);
         sb.append(", createTime=").append(createTime);
         sb.append(", createUser=").append(createUser);
