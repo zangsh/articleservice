@@ -8,7 +8,8 @@ package com.czb.enums;
 public enum  ResultCode {
     EXIST_OBJ(400001,"信息已存在！"),
     NOT_EXIST_OBJ(400002,"信息不存在！"),
-    EXIST_RELATION_OBJ(400003,"存在关联信息！"),;
+    EXIST_RELATION_OBJ(400003,"存在关联信息！"),
+    PARAMETER_ERROR_OBJ(400004,"参数格式错误！");
 
     private int code;
 

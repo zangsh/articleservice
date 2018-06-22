@@ -36,10 +36,10 @@ public interface LabelService {
     List<LabelVo> selectAll();
     
     /**查询详细*/
-    LabelVo selectById(String id);
+    LabelVo selectById(Integer id);
     
     /**删除标签*/
-    String deleteById(String id);
+    String deleteById(Integer id);
     
     /**
      * 官网分页查询标签文章
@@ -47,7 +47,7 @@ public interface LabelService {
      * pageNum 页码
      * pageSize 数量
      * */
-	Page<LabelArticleVo> selectLabelArticlePageForPc(String id, int pageNum,int pageSize);
+	Page<LabelArticleVo> selectLabelArticlePageForPc(Integer id, int pageNum,int pageSize);
 	
 	/**
      * app分页查询标签文章
@@ -55,5 +55,5 @@ public interface LabelService {
      * pageNum 页码
      * pageSize 数量
      * */
-	Page<LabelArticleVo> selectLabelArticlePageForApp(String id, int pageNum,int pageSize);
+	Page<LabelArticleVo> selectLabelArticlePageForApp(Integer id, int pageNum,int pageSize);
 }

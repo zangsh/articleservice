@@ -11,7 +11,6 @@ import com.czb.article.bean.vo.LabelArticleVo;
 import com.czb.article.bean.vo.LabelVo;
 import com.czb.article.dao.LabelMapper;
 import com.czb.article.service.LabelService;
-import com.czb.article.util.MyIdFactory;
 import com.czb.article.util.ResultUtils;
 import com.czb.enums.ResultCode;
 import com.github.pagehelper.Page;
@@ -44,9 +43,8 @@ public class LabelServiceImpl implements LabelService{
 		//判断是否重复
 		Label temp = labelMapper.selectByName(label.getName());
 		if(temp!=null){
-			ResultUtils.ERROR(ResultCode.EXIST_OBJ);
+			return ResultUtils.ERROR(ResultCode.EXIST_OBJ);
 		}
-		label.setId(MyIdFactory.generaterId());
 		labelMapper.insert(label);
 		return ResultUtils.OK();
 	}
@@ -59,19 +57,19 @@ public class LabelServiceImpl implements LabelService{
 	@Override
 	public String editLabel(Label label) {
 		if(StringUtils.isEmpty(label.getId())){
-			ResultUtils.ERROR(ResultCode.NOT_EXIST_OBJ);
+			return ResultUtils.ERROR(ResultCode.NOT_EXIST_OBJ);
 		}
 		//判断是否重复
 		Label temp = labelMapper.selectByName(label.getName());
 		if(temp!=null){
 			if(!label.getId().equals(temp.getId())){
-				ResultUtils.ERROR(ResultCode.EXIST_OBJ);
+				return ResultUtils.ERROR(ResultCode.EXIST_OBJ);
 			}
 		}
 		//判断是否存在文章
 		Integer labelArticleCount = labelMapper.selectLabelArticleCount(label.getId());
 		if(labelArticleCount!=null && labelArticleCount>0){
-			ResultUtils.ERROR(ResultCode.EXIST_RELATION_OBJ);
+			return ResultUtils.ERROR(ResultCode.EXIST_RELATION_OBJ);
 		}
 		//更新标签
 		labelMapper.updateByPrimaryKey(label);
@@ -79,7 +77,7 @@ public class LabelServiceImpl implements LabelService{
 	}
 
 	@Override
-	public LabelVo selectById(String id) {
+	public LabelVo selectById(Integer id) {
 		if(StringUtils.isEmpty(id)){
 			return null;
 		}
@@ -91,27 +89,27 @@ public class LabelServiceImpl implements LabelService{
 	}
 
 	@Override
-	public String deleteById(String id) {
+	public String deleteById(Integer id) {
 		if(StringUtils.isEmpty(id)){
-			ResultUtils.ERROR(ResultCode.NOT_EXIST_OBJ);
+			return ResultUtils.ERROR(ResultCode.NOT_EXIST_OBJ);
 		}
 		//判断是否存在文章
 		Integer labelArticleCount = labelMapper.selectLabelArticleCount(id);
 		if(labelArticleCount!=null && labelArticleCount>0){
-			ResultUtils.ERROR(ResultCode.EXIST_RELATION_OBJ);
+			return ResultUtils.ERROR(ResultCode.EXIST_RELATION_OBJ);
 		}
 		labelMapper.deleteByPrimaryKey(id);
 		return ResultUtils.OK();
 	}
 
 	@Override
-	public Page<LabelArticleVo> selectLabelArticlePageForPc(String id, int pageNum, int pageSize) {
+	public Page<LabelArticleVo> selectLabelArticlePageForPc(Integer id, int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
         return labelMapper.selectLabelArticlePageForPc(id);
 	}
 
 	@Override
-	public Page<LabelArticleVo> selectLabelArticlePageForApp(String id, int pageNum, int pageSize) {
+	public Page<LabelArticleVo> selectLabelArticlePageForApp(Integer id, int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
         return labelMapper.selectLabelArticlePageForApp(id);
 	}

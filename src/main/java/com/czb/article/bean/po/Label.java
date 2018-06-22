@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 public class Label implements Serializable {
 	
 	/**id*/
-    private String id;
+    private Integer id;
 
     /**名称*/
     @Pattern(regexp="[\u4e00-\u9fa5a-zA-Z]{2,8}",message="标签名称格式错误")
@@ -33,19 +33,19 @@ public class Label implements Serializable {
     private Date updateTime;
 
     /**删除标识0:未删除 1:已删除*/
-    private Boolean deleteFlag;
+    private String deleteFlag;
 
     private static final long serialVersionUID = 1L;
 
-    public String getId() {
-        return id;
-    }
+    public Integer getId() {
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getName() {
+	public String getName() {
         return name;
     }
 
@@ -85,15 +85,15 @@ public class Label implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDeleteFlag() {
-        return deleteFlag;
-    }
+    public String getDeleteFlag() {
+		return deleteFlag;
+	}
 
-    public void setDeleteFlag(Boolean deleteFlag) {
-        this.deleteFlag = deleteFlag;
-    }
+	public void setDeleteFlag(String deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
 
-    @Override
+	@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
