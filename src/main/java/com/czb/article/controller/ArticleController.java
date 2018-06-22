@@ -36,6 +36,7 @@ public class ArticleController {
      * @apiParam {String} digest 文章摘要
      * @apiParam {String} image_addr 封面图片地址
      * @apiParam {String} keywords 关键词（逗号分隔，）
+     * @apiParam {String} label_id 文章标签（json数组）
      * @apiParamExample {json} 请求样例：
      *                {
      *                    "token":"xxx",
@@ -44,6 +45,9 @@ public class ArticleController {
      *                    "digest":"xxx",
      *                    "image_addr":"xxx",
      *                    "keywords":"xxx"，
+     *                    "label_ids":[
+     *                      "1","2"
+     *                    ]
      *                }
      * @apiSuccess (200) {String} msg 信息
      * @apiSuccess (200) {int} code 200 成功 5xxxxx 错误
@@ -68,6 +72,7 @@ public class ArticleController {
             params.put("update_user","1");
         }
         try {
+            //校验文章标题是否存在
             int count = articleService.isExistsTitle(params);
             if (count > 0){
                 return ResultUtils.ERROR(ResultCode.EXIST_OBJ);
@@ -98,8 +103,8 @@ public class ArticleController {
      * @apiSuccess (200) {String} msg 信息
      * @apiSuccess (200) {int} code 200 成功 5xxxxx 错误
      * @apiSuccess (200) {String} data 返回数据
-     * @apiSuccess (200) {String} pages 总页数
-     * @apiSuccess (200) {String} total 总条数
+     * @apiSuccess (200) {String} data.pages 总页数
+     * @apiSuccess (200) {String} data.total 总条数
      * @apiSuccess (200) {Article} data.list 数据列表
      * @apiUse ArticleResponse
      * @apiSuccessExample {json} 返回样例:

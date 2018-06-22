@@ -22,7 +22,7 @@ public interface ArticleService {
      * @param params
      * @return
      */
-    int addArticle(Map<String,Object> params);
+    void addArticle(Map<String,Object> params);
 
     /**
      * 获取文章列表
