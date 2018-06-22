@@ -18,6 +18,7 @@ import com.czb.article.common.ValidationResult;
 import com.czb.article.service.LabelService;
 import com.czb.article.util.ResultUtils;
 import com.czb.article.util.ValidationUtils;
+import com.czb.enums.ResultCode;
 import com.github.pagehelper.Page;
 
 import lombok.extern.slf4j.Slf4j;
@@ -176,7 +177,7 @@ public class LabelController {
 		log.info("addLabel start! label:{}", label);
 		ValidationResult validationResult = ValidationUtils.validateEntity(label);
 		if(validationResult.isHasErrors()){
-			return ResultUtils.ERROR(validationResult.getErrorMsg());
+			return ResultUtils.ERROR(ResultCode.PARAMETER_ERROR_OBJ);
 		}
 		return labelService.addLabel(label);
     }
@@ -192,7 +193,7 @@ public class LabelController {
  	 * @apiParamExample {json} 请求样例：
      * 		{
      *      	"name":"xxx",
-     *      	"id":"xxx"
+     *      	"id":1
      *      }
      * @apiSuccess (200) {String} msg 信息
      * @apiSuccess (200) {int} code 200 成功
@@ -210,7 +211,7 @@ public class LabelController {
 		log.info("editLabel start! label:{}", label);
 		ValidationResult validationResult = ValidationUtils.validateEntity(label);
 		if(validationResult.isHasErrors()){
-			return ResultUtils.ERROR(validationResult.getErrorMsg());
+			return ResultUtils.ERROR(ResultCode.PARAMETER_ERROR_OBJ);
 		}
 		return labelService.editLabel(label);
     }
@@ -221,7 +222,7 @@ public class LabelController {
      * @apiGroup label-interface
      * @apiVersion 0.0.1
      * @apiDescription 查询标签详细
- 	 * @apiParam {Integer} id id
+ 	 * @apiParam {int} id id
      * @apiSuccess (200) {String} msg 信息
      * @apiSuccess (200) {int} code 200 成功
      * @apiSuccess (200) {String} data 返回数据
