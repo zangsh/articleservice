@@ -26,60 +26,60 @@ public class ResultUtils {
      * 成功信息
      * @return
      */
-    public static String OK(){
+    public static Map OK(){
         return OK(OK_MSG);
     }
 
-    public static String OK(String msg){
+    public static Map OK(String msg){
         return OK(OK_CODE,msg,null);
     }
 
-    public static String OK(Object data){
+    public static Map OK(Object data){
         return OK(OK_CODE,data);
     }
 
-    public static String OK(int code,Object data){
+    public static Map OK(int code,Object data){
         return OK(code,OK_MSG,data);
     }
 
-    public static String OK(int code,String msg,Object data){
+    public static Map OK(int code,String msg,Object data){
         MAP.put(CODE,code);
         MAP.put(MSG,msg);
         MAP.put(DATA,data);
-        return FastJsonUtils.mapToString(MAP);
+        return MAP;
     }
 
     /**
      * 失败信息
      * @return
      */
-    public static String ERROR(){
+    public static Map ERROR(){
         return ERROR(ERROR_MSG);
     }
 
-    public static String ERROR(String msg){
+    public static Map ERROR(String msg){
         return ERROR(ERROR_CODE,msg,null);
     }
 
-    public static String ERROR(Object data){
+    public static Map ERROR(Object data){
         return ERROR(ERROR_CODE,data);
     }
 
-    public static String ERROR(int code,Object data){
+    public static Map ERROR(int code,Object data){
         return ERROR(code,ERROR_MSG,data);
     }
 
-    public static String ERROR(int code,String msg,Object data){
+    public static Map ERROR(int code,String msg,Object data){
         MAP.put(CODE,code);
         MAP.put(MSG,msg);
         MAP.put(DATA,data);
-        return FastJsonUtils.mapToString(MAP);
+        return MAP;
     }
 
-    public static String ERROR(ResultCode resultCode){
+    public static Map ERROR(ResultCode resultCode){
         MAP.put(CODE,resultCode.getCode());
         MAP.put(MSG,resultCode.getMsg());
         MAP.put(DATA,null);
-        return FastJsonUtils.mapToString(MAP);
+        return MAP;
     }
 }

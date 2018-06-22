@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.czb.article.util.ResultUtils;
 
+import java.util.Map;
+
 @ControllerAdvice
 @ResponseBody
 public class GlobleExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(GlobleExceptionHandler.class);
     @ExceptionHandler(value = Exception.class)
-    public String exceptionHandle(Exception e) {
+    public Map exceptionHandle(Exception e) {
         logger.error(" 出现错误：{}", e);
         return ResultUtils.ERROR(e.getMessage());
     }

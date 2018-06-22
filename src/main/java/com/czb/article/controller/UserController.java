@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zangsh on 2018/6/20.
@@ -20,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("getUser")
-    public String getUser(){
+    public Map getUser(){
         List<User> userList = userService.getUserByNumSize(2,2);
         PageInfo pageInfo = new PageInfo(userList);
 

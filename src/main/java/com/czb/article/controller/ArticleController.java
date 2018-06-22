@@ -35,7 +35,7 @@ public class ArticleController {
      * @apiParam {String} content 文章内容
      * @apiParam {String} digest 文章摘要
      * @apiParam {String} image_addr 封面图片地址
-     * @apiParam {String} keywords 关键词（逗号分隔，）
+     * @apiParam {String} keywords 关键词（json数组）
      * @apiParam {String} label_id 文章标签（json数组）
      * @apiParamExample {json} 请求样例：
      *                {
@@ -44,7 +44,9 @@ public class ArticleController {
      *                    "content":"xxx",
      *                    "digest":"xxx",
      *                    "image_addr":"xxx",
-     *                    "keywords":"xxx"，
+     *                    "keywords":[
+     *                      "专注力","思维力"
+     *                    ]，
      *                    "label_ids":[
      *                      "1","2"
      *                    ]
@@ -62,9 +64,8 @@ public class ArticleController {
      *                }
      */
     @CrossOrigin
-    @ResponseBody
     @RequestMapping(value = "/addArticle")
-    public String addArticle(@RequestBody String json){
+    public Map addArticle(@RequestBody String json){
         log.info("addArticle参数：" + json);
         Map<String,Object> params = FastJsonUtils.stringToMap(json);
         if(!StringUtils.isEmpty(params.get("token"))){
@@ -138,9 +139,8 @@ public class ArticleController {
      *               }
      */
     @CrossOrigin
-    @ResponseBody
     @RequestMapping(value = "/getArticleByPage")
-    public String getArticleByPage(@RequestBody String json){
+    public Map getArticleByPage(@RequestBody String json){
         log.info("addArticle参数：" + json);
         Map<String,Object> params = FastJsonUtils.stringToMap(json);
         List<ArticleResponse> articleResponseList = articleService.getArticleByPage(params);
