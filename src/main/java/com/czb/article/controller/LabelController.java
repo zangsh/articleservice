@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.czb.article.bean.po.Label;
+import com.czb.article.bean.vo.LabelArticleVo;
 import com.czb.article.bean.vo.LabelVo;
 import com.czb.article.common.PageInfo;
 import com.czb.article.common.ValidationResult;
@@ -54,6 +55,7 @@ public class LabelController {
      * - list:数据列表
      * - id:标签ID
      * - name:标签名称
+     * - articleCount:文章数量
      * @apiSuccessExample {json} 返回样例:
      * 		{
      * 			"code":"200",
@@ -64,6 +66,7 @@ public class LabelController {
 	 *		                "createTime": "2018-06-21 16:18:42",
 	 *		                "id": "1",
 	 *		                "name": "生活",
+	 *						"articleCount": "10"
 	 *		            }
 	 *		        ],
 	 *		        "pageNum": 1,
@@ -240,5 +243,130 @@ public class LabelController {
 		log.info("getLabelDetails start! id:{}", id);
     	LabelVo labelVo = labelService.selectById(id);
         return ResultUtils.OK(labelVo);
+    }
+	
+	/**
+     * @api {get} /articleLabel/delLabel 删除标签
+     * @apiName 删除标签
+     * @apiGroup label-interface
+     * @apiVersion 0.0.1
+     * @apiDescription 删除标签
+ 	 * @apiParam {string} id id
+     * @apiSuccess (200) {String} msg 信息
+     * @apiSuccess (200) {int} code 200 成功
+     * @apiSuccess (200) {String} data 返回数据
+     * @apiSuccessExample {json} 返回样例:
+     * 		{
+     * 			"code":"200",
+     *          "msg":"操作成功",
+     *          "data":null
+     * 		}
+     */
+	@CrossOrigin
+    @RequestMapping(value = "/delLabel", method = {RequestMethod.GET})
+    public String delLabel(String id){
+		log.info("delLabel start! id:{}", id);
+    	LabelVo labelVo = labelService.selectById(id);
+        return ResultUtils.OK(labelVo);
+    }
+	
+	/**
+     * @api {get} /articleLabel/getLabelArticleForPc 官网查询标签文章
+     * @apiName 官网查询标签文章
+     * @apiGroup label-interface
+     * @apiVersion 0.0.1
+     * @apiDescription 官网查询标签文章
+ 	 * @apiParam {String} id 标签id
+ 	 * @apiParam {int} pageNum 页码
+ 	 * @apiParam {int} pageSize 每页长度
+     * @apiSuccess (200) {String} msg 信息
+     * @apiSuccess (200) {int} code 200 成功
+     * @apiSuccess (200) {String} data 返回数据
+     * - labelId:标签ID
+     * - articleId:文章ID
+     * - title:标题
+     * - imageAddr:文章图片
+     * - keywords:关键字
+     * - goLiveTime:上线时间
+     * @apiSuccessExample {json} 返回样例:
+     * 		{
+     * 			"code":"200",
+     *          "msg":"操作成功",
+     *          "data":{
+	 *		        "list": [
+	 *		            {
+	 *		                "labelId": "xxx",
+	 *		                "articleId": "xxx",
+	 *		                "title": "xxx",
+	 *						"imageAddr": "xxx",
+	 *						"keywords": "xxx",
+	 *						"goLiveTime": "xxx"
+	 *		            }
+	 *		        ],
+	 *		        "pageNum": 1,
+	 *		        "pageSize": 10,
+	 *		        "pages": 1,
+	 *		        "total": 2
+     *          }
+     * 		}
+     */
+	@CrossOrigin
+    @RequestMapping(value = "/getLabelArticleForPc", method = {RequestMethod.GET})
+    public String getLabelArticleForPc(String id,@RequestParam(required=false,defaultValue="1")int pageNum,
+    		@RequestParam(required=false,defaultValue="10")int pageSize){
+		log.info("getLabelArticleForPc start! id:{}, pageNum:{}, pageSize:{}", id, pageNum, pageSize);
+		Page<LabelArticleVo> labelArticleVos = labelService.selectLabelArticlePageForPc(id, pageNum, pageSize);
+		PageInfo<LabelArticleVo> pageInfo = new PageInfo<>(labelArticleVos);
+        return ResultUtils.OK(pageInfo);
+    }
+	
+	/**
+     * @api {get} /articleLabel/getLabelArticleForApp app查询标签文章
+     * @apiName app查询标签文章
+     * @apiGroup label-interface
+     * @apiVersion 0.0.1
+     * @apiDescription app查询标签文章
+ 	 * @apiParam {String} id 标签id
+ 	 * @apiParam {int} pageNum 页码
+ 	 * @apiParam {int} pageSize 每页长度
+     * @apiSuccess (200) {String} msg 信息
+     * @apiSuccess (200) {int} code 200 成功
+     * @apiSuccess (200) {String} data 返回数据
+     * - labelId:标签ID
+     * - articleId:文章ID
+     * - title:标题
+     * - imageAddr:文章图片
+     * - keywords:关键字
+     * - goLiveTime:上线时间
+     * @apiSuccessExample {json} 返回样例:
+     * 		{
+     * 			"code":"200",
+     *          "msg":"操作成功",
+     *          "data":{
+	 *		        "list": [
+	 *		            {
+	 *		                "labelId": "xxx",
+	 *		                "articleId": "xxx",
+	 *		                "title": "xxx",
+	 *						"imageAddr": "xxx",
+	 *						"keywords": "xxx",
+	 *						"goLiveTime": "xxx"
+	 *		            }
+	 *		        ],
+	 *		        "pageNum": 1,
+	 *		        "pageSize": 10,
+	 *		        "pages": 1,
+	 *		        "total": 2
+     *          }
+     * 		}
+     */
+	@CrossOrigin
+    @RequestMapping(value = "/getLabelArticleForApp", method = {RequestMethod.GET})
+    public String getLabelArticleForApp(String id,@RequestParam(required=false,defaultValue="1")int pageNum,
+    		@RequestParam(required=false,defaultValue="10")int pageSize){
+		log.info("getLabelArticleForApp start! id:{}, pageNum:{}, pageSize:{}", id, pageNum, pageSize);
+		Page<LabelArticleVo> labelArticleVos = labelService.selectLabelArticlePageForApp(id, pageNum, pageSize);
+		PageInfo<LabelArticleVo> pageInfo = new PageInfo<>(labelArticleVos);
+        return ResultUtils.OK(pageInfo);
     }
 }

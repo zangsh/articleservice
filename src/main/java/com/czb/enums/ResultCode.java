@@ -6,7 +6,9 @@ package com.czb.enums;
  * Created by zangsh on 2018/6/22.
  */
 public enum  ResultCode {
-    EXIST_OBJ(400001,"信息已存在！");
+    EXIST_OBJ(400001,"信息已存在！"),
+    NOT_EXIST_OBJ(400002,"信息不存在！"),
+    EXIST_RELATION_OBJ(400003,"存在关联信息！"),;
 
     private int code;
 

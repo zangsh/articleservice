@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.czb.article.bean.po.Label;
+import com.czb.article.bean.vo.LabelArticleVo;
 import com.czb.article.bean.vo.LabelVo;
 import com.czb.article.dao.LabelMapper;
 import com.czb.article.service.LabelService;
 import com.czb.article.util.MyIdFactory;
 import com.czb.article.util.ResultUtils;
+import com.czb.enums.ResultCode;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
@@ -42,7 +44,7 @@ public class LabelServiceImpl implements LabelService{
 		//判断是否重复
 		Label temp = labelMapper.selectByName(label.getName());
 		if(temp!=null){
-			ResultUtils.ERROR("标签已存在");
+			ResultUtils.ERROR(ResultCode.EXIST_OBJ);
 		}
 		label.setId(MyIdFactory.generaterId());
 		labelMapper.insert(label);
@@ -57,19 +59,19 @@ public class LabelServiceImpl implements LabelService{
 	@Override
 	public String editLabel(Label label) {
 		if(StringUtils.isEmpty(label.getId())){
-			ResultUtils.ERROR("标签ID为空");
+			ResultUtils.ERROR(ResultCode.NOT_EXIST_OBJ);
 		}
 		//判断是否重复
 		Label temp = labelMapper.selectByName(label.getName());
 		if(temp!=null){
 			if(!label.getId().equals(temp.getId())){
-				ResultUtils.ERROR("标签已存在");
+				ResultUtils.ERROR(ResultCode.EXIST_OBJ);
 			}
 		}
 		//判断是否存在文章
 		Integer labelArticleCount = labelMapper.selectLabelArticleCount(label.getId());
 		if(labelArticleCount!=null && labelArticleCount>0){
-			ResultUtils.ERROR("标签已绑定文章");
+			ResultUtils.ERROR(ResultCode.EXIST_RELATION_OBJ);
 		}
 		//更新标签
 		labelMapper.updateByPrimaryKey(label);
@@ -87,4 +89,31 @@ public class LabelServiceImpl implements LabelService{
 		labelVo.setName(label.getName());
 		return labelVo;
 	}
+
+	@Override
+	public String deleteById(String id) {
+		if(StringUtils.isEmpty(id)){
+			ResultUtils.ERROR(ResultCode.NOT_EXIST_OBJ);
+		}
+		//判断是否存在文章
+		Integer labelArticleCount = labelMapper.selectLabelArticleCount(id);
+		if(labelArticleCount!=null && labelArticleCount>0){
+			ResultUtils.ERROR(ResultCode.EXIST_RELATION_OBJ);
+		}
+		labelMapper.deleteByPrimaryKey(id);
+		return ResultUtils.OK();
+	}
+
+	@Override
+	public Page<LabelArticleVo> selectLabelArticlePageForPc(String id, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+        return labelMapper.selectLabelArticlePageForPc(id);
+	}
+
+	@Override
+	public Page<LabelArticleVo> selectLabelArticlePageForApp(String id, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+        return labelMapper.selectLabelArticlePageForApp(id);
+	}
+
 }

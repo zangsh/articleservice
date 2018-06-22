@@ -24,6 +24,9 @@ public class LabelVo implements Serializable {
 
     /**创建时间*/
     private Date createTime;
+    
+    /**文章数量*/
+    private int articleCount;
 
 	public String getId() {
 		return id;
@@ -47,6 +50,14 @@ public class LabelVo implements Serializable {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public int getArticleCount() {
+		return articleCount;
+	}
+
+	public void setArticleCount(int articleCount) {
+		this.articleCount = articleCount;
 	}
 	
 }
