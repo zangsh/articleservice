@@ -188,7 +188,7 @@ public class LabelController {
      * @apiVersion 0.0.1
      * @apiDescription 修改标签
  	 * @apiParam {string} name 标签名称
- 	 * @apiParam {string} id 标签ID
+ 	 * @apiParam {int} id 标签ID
  	 * @apiParamExample {json} 请求样例：
      * 		{
      *      	"name":"xxx",
@@ -221,7 +221,7 @@ public class LabelController {
      * @apiGroup label-interface
      * @apiVersion 0.0.1
      * @apiDescription 查询标签详细
- 	 * @apiParam {string} id id
+ 	 * @apiParam {Integer} id id
      * @apiSuccess (200) {String} msg 信息
      * @apiSuccess (200) {int} code 200 成功
      * @apiSuccess (200) {String} data 返回数据
@@ -239,7 +239,7 @@ public class LabelController {
      */
 	@CrossOrigin
     @RequestMapping(value = "/getLabelDetails", method = {RequestMethod.GET})
-    public String getLabelDetails(String id){
+    public String getLabelDetails(Integer id){
 		log.info("getLabelDetails start! id:{}", id);
     	LabelVo labelVo = labelService.selectById(id);
         return ResultUtils.OK(labelVo);
@@ -251,7 +251,7 @@ public class LabelController {
      * @apiGroup label-interface
      * @apiVersion 0.0.1
      * @apiDescription 删除标签
- 	 * @apiParam {string} id id
+ 	 * @apiParam {int} id id
      * @apiSuccess (200) {String} msg 信息
      * @apiSuccess (200) {int} code 200 成功
      * @apiSuccess (200) {String} data 返回数据
@@ -264,10 +264,9 @@ public class LabelController {
      */
 	@CrossOrigin
     @RequestMapping(value = "/delLabel", method = {RequestMethod.GET})
-    public String delLabel(String id){
+    public String delLabel(Integer id){
 		log.info("delLabel start! id:{}", id);
-    	LabelVo labelVo = labelService.selectById(id);
-        return ResultUtils.OK(labelVo);
+		return labelService.deleteById(id);
     }
 	
 	/**
@@ -276,7 +275,7 @@ public class LabelController {
      * @apiGroup label-interface
      * @apiVersion 0.0.1
      * @apiDescription 官网查询标签文章
- 	 * @apiParam {String} id 标签id
+ 	 * @apiParam {int} id 标签id
  	 * @apiParam {int} pageNum 页码
  	 * @apiParam {int} pageSize 每页长度
      * @apiSuccess (200) {String} msg 信息
@@ -312,7 +311,7 @@ public class LabelController {
      */
 	@CrossOrigin
     @RequestMapping(value = "/getLabelArticleForPc", method = {RequestMethod.GET})
-    public String getLabelArticleForPc(String id,@RequestParam(required=false,defaultValue="1")int pageNum,
+    public String getLabelArticleForPc(Integer id,@RequestParam(required=false,defaultValue="1")int pageNum,
     		@RequestParam(required=false,defaultValue="10")int pageSize){
 		log.info("getLabelArticleForPc start! id:{}, pageNum:{}, pageSize:{}", id, pageNum, pageSize);
 		Page<LabelArticleVo> labelArticleVos = labelService.selectLabelArticlePageForPc(id, pageNum, pageSize);
@@ -326,7 +325,7 @@ public class LabelController {
      * @apiGroup label-interface
      * @apiVersion 0.0.1
      * @apiDescription app查询标签文章
- 	 * @apiParam {String} id 标签id
+ 	 * @apiParam {int} id 标签id
  	 * @apiParam {int} pageNum 页码
  	 * @apiParam {int} pageSize 每页长度
      * @apiSuccess (200) {String} msg 信息
@@ -362,7 +361,7 @@ public class LabelController {
      */
 	@CrossOrigin
     @RequestMapping(value = "/getLabelArticleForApp", method = {RequestMethod.GET})
-    public String getLabelArticleForApp(String id,@RequestParam(required=false,defaultValue="1")int pageNum,
+    public String getLabelArticleForApp(Integer id,@RequestParam(required=false,defaultValue="1")int pageNum,
     		@RequestParam(required=false,defaultValue="10")int pageSize){
 		log.info("getLabelArticleForApp start! id:{}, pageNum:{}, pageSize:{}", id, pageNum, pageSize);
 		Page<LabelArticleVo> labelArticleVos = labelService.selectLabelArticlePageForApp(id, pageNum, pageSize);

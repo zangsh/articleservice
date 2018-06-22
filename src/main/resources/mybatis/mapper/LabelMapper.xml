@@ -3,25 +3,25 @@
 <mapper namespace="com.czb.article.dao.LabelMapper">
 
 	<resultMap id="BaseResultMap" type="com.czb.article.bean.po.Label">
-		<id column="id" property="id" jdbcType="VARCHAR" />
+		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="update_user" property="updateUser" jdbcType="VARCHAR" />
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-		<result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+		<result column="delete_flag" property="deleteFlag" jdbcType="CHAR" />
 	</resultMap>
 
 	<resultMap id="LabelVo" type="com.czb.article.bean.vo.LabelVo">
-		<id column="id" property="id" jdbcType="VARCHAR" />
+		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="articleCount" property="articleCount" jdbcType="INTEGER" />
 	</resultMap>
 	
 	<resultMap id="LabelArticleVo" type="com.czb.article.bean.vo.LabelArticleVo">
-		<result column="labelId" property="labelId" jdbcType="VARCHAR" />
-		<result column="articleId" property="articleId" jdbcType="VARCHAR" />
+		<result column="labelId" property="labelId" jdbcType="INTEGER" />
+		<result column="articleId" property="articleId" jdbcType="INTEGER" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="digest" property="digest" jdbcType="VARCHAR" />
 		<result column="imageAddr" property="imageAddr" jdbcType="VARCHAR" />
@@ -29,16 +29,15 @@
 		<result column="goLiveTime" property="goLiveTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		update article_label set delete_flag = 1 where id =
-		#{id,jdbcType=VARCHAR}
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		update article_label set delete_flag = 1 where id = #{id,jdbcType=INTEGER}
 	</delete>
 
 	<insert id="insert" parameterType="com.czb.article.bean.po.Label">
 		insert into article_label (id, `name`,
 		create_user, create_time, update_user,
 		update_time, delete_flag)
-		values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
 		#{createUser,jdbcType=VARCHAR}, now(), #{updateUser,jdbcType=VARCHAR},
 		now(), 0)
 	</insert>
@@ -48,20 +47,17 @@
 		set `name` = #{name,jdbcType=VARCHAR},
 		update_user = #{updateUser,jdbcType=VARCHAR},
 		update_time = #{updateTime,jdbcType=TIMESTAMP}
-		where id = #{id,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
 	</update>
 
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
-		select id, `name`, create_user, create_time, update_user, update_time,
-		delete_flag
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select id, `name`, create_user, create_time, update_user, update_time, delete_flag
 		from article_label
-		where id = #{id,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
 	</select>
 
-	<select id="selectAll" resultMap="BaseResultMap">
-		select id, `name`, create_user, create_time, update_user, update_time,
-		delete_flag
+	<select id="selectAll" resultMap="LabelVo">
+		select id, `name`
 		from article_label
 		where delete_flag = 0
 		order by create_time
@@ -88,8 +84,7 @@
 		order by rand() limit #{size}
 	</select>
 	
-	<select id="selectByName" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
+	<select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select id, `name`, create_user, create_time, update_user, update_time,
 		delete_flag
 		from article_label
@@ -97,14 +92,14 @@
 		and delete_flag = 0
 	</select>
 	
-	<select id="selectLabelArticleCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+	<select id="selectLabelArticleCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		select 1 
 		from article_label_article 
-		where label_id = #{id,jdbcType=VARCHAR} 
+		where label_id = #{id,jdbcType=INTEGER} 
 		and delete_flag = 0
 	</select>
 	
-	<select id="selectLabelArticlePageForPc" resultType="LabelArticleVo" parameterType="java.lang.String">
+	<select id="selectLabelArticlePageForPc" resultType="LabelArticleVo" parameterType="java.lang.Integer">
 		select
 			ala.label_id as labelId,
 			ala.article_id as articleId,
@@ -116,10 +111,10 @@
 		left join article_article aa on ala.article_id = aa.id
 		where ala.delete_flag = 0
 		and aa.delete_flag = 0
-		and ala.label_id = #{id,jdbcType=VARCHAR}
+		and ala.label_id = #{id,jdbcType=INTEGER}
 	</select>
 	
-	<select id="selectLabelArticlePageForApp" resultType="LabelArticleVo" parameterType="java.lang.String">
+	<select id="selectLabelArticlePageForApp" resultType="LabelArticleVo" parameterType="java.lang.Integer">
 		select
 			ala.label_id as labelId,
 			ala.article_id as articleId,
@@ -131,6 +126,6 @@
 		left join article_article aa on ala.article_id = aa.id
 		where ala.delete_flag = 0
 		and aa.delete_flag = 0
-		and ala.label_id = #{id,jdbcType=VARCHAR}
+		and ala.label_id = #{id,jdbcType=INTEGER}
 	</select>
 </mapper>

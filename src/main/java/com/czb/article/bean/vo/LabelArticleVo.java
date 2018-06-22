@@ -17,10 +17,10 @@ public class LabelArticleVo implements Serializable {
 	private static final long serialVersionUID = -7559790834581331814L;
 	
 	/**标签ID*/
-    private String labelId;
+    private Integer labelId;
 
     /**文章ID*/
-    private String articleId;
+    private Integer articleId;
     
     /**文章标题*/
     private String title;
@@ -37,19 +37,19 @@ public class LabelArticleVo implements Serializable {
     /**上线时间*/
     private Date goLiveTime;
 
-	public String getLabelId() {
+	public Integer getLabelId() {
 		return labelId;
 	}
 
-	public void setLabelId(String labelId) {
+	public void setLabelId(Integer labelId) {
 		this.labelId = labelId;
 	}
 
-	public String getArticleId() {
+	public Integer getArticleId() {
 		return articleId;
 	}
 
-	public void setArticleId(String articleId) {
+	public void setArticleId(Integer articleId) {
 		this.articleId = articleId;
 	}
 

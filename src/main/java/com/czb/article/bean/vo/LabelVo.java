@@ -17,7 +17,7 @@ public class LabelVo implements Serializable {
 	private static final long serialVersionUID = -6927211577192676566L;
 
 	/**id*/
-    private String id;
+    private Integer id;
 
     /**名称*/
     private String name;
@@ -26,15 +26,7 @@ public class LabelVo implements Serializable {
     private Date createTime;
     
     /**文章数量*/
-    private int articleCount;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+    private Integer articleCount;
 
 	public String getName() {
 		return name;
@@ -52,11 +44,19 @@ public class LabelVo implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public int getArticleCount() {
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getArticleCount() {
 		return articleCount;
 	}
 
-	public void setArticleCount(int articleCount) {
+	public void setArticleCount(Integer articleCount) {
 		this.articleCount = articleCount;
 	}
 	
