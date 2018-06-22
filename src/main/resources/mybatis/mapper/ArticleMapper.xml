@@ -29,7 +29,7 @@
       id,title,digest,image_addr,keywords,create_time,content
   </sql>
 
-    <insert id="addArticle" parameterType="Map">
+    <insert id="addArticle" parameterType="Map" useGeneratedKeys="true" keyProperty="params.id">
         INSERT INTO article_article(
         title,
         digest,

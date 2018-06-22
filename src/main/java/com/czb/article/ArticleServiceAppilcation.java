@@ -4,6 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * 文章管理服务
@@ -22,6 +23,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  * @version 0.0.1-SNAPSHOT
  */
 @SpringBootApplication
+@EnableTransactionManagement
 @ServletComponentScan
 @MapperScan("com.czb.article.dao")
 public class ArticleServiceAppilcation {
