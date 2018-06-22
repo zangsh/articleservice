@@ -134,6 +134,13 @@
             <version>${swagger2.version}</version>
         </dependency>
         <!-- swagger2 end -->
+        
+        <!-- java validation start -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <!-- java validation end -->
     </dependencies>
 
     <build>

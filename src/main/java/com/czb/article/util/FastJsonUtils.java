@@ -1,15 +1,15 @@
 package com.czb.article.util;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.JSONLibDataFormatSerializer;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
-
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
-import java.util.List;
-import java.util.Map;
 
 public class FastJsonUtils {
 

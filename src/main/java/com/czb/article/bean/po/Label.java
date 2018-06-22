@@ -3,6 +3,8 @@ package com.czb.article.bean.po;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
+
 /**
  * <p>Title: Label.java</p>
  * <p>Description: 标签</p>
@@ -15,10 +17,8 @@ public class Label implements Serializable {
     private String id;
 
     /**名称*/
+    @Pattern(regexp="[\u4e00-\u9fa5a-zA-Z]{2,8}",message="标签名称格式错误")
     private String name;
-
-    /**来源类型1.官网 2.app*/
-    private Integer type;
 
     /**创建人ID*/
     private String createUser;
@@ -51,14 +51,6 @@ public class Label implements Serializable {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
     }
 
     public String getCreateUser() {
@@ -109,7 +101,6 @@ public class Label implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
-        sb.append(", type=").append(type);
         sb.append(", createUser=").append(createUser);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateUser=").append(updateUser);

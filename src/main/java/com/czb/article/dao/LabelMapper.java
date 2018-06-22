@@ -1,9 +1,12 @@
 package com.czb.article.dao;
 
-import com.czb.article.bean.po.Label;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import com.czb.article.bean.po.Label;
+import com.czb.article.bean.vo.LabelVo;
+import com.github.pagehelper.Page;
 
 /**
  * <p>Title: LabelMapper.java</p>
@@ -18,11 +21,15 @@ public interface LabelMapper {
 
     Label selectByPrimaryKey(String id);
 
-    List<Label> selectAll();
+    List<LabelVo> selectAll();
 
     int updateByPrimaryKey(Label record);
     
-    List<Label> selectPage(@Param("name")String name,@Param("pageNum")int pageNum,@Param("pageSize")int pageSize);
+    Page<LabelVo> selectPage(@Param("name")String name);
     
-    List<Label> selectRandom(int size);
+    List<LabelVo> selectRandom(int size);
+    
+    Label selectByName(String name);
+    
+    int selectLabelArticleCount(String id);
 }

@@ -3,6 +3,8 @@ package com.czb.article.service;
 import java.util.List;
 
 import com.czb.article.bean.po.Label;
+import com.czb.article.bean.vo.LabelVo;
+import com.github.pagehelper.Page;
 
 /**
  * <p>Title: LabelService.java</p>
@@ -12,9 +14,21 @@ import com.czb.article.bean.po.Label;
  */
 public interface LabelService {
 
-	/**分页查询文章标签*/
-    List<Label> selectPage(String name,int pageNum,int pageSize);
+	/**分页查询标签*/
+	Page<LabelVo> selectPage(String name,int pageNum,int pageSize);
     
-    /**随机查询文章标签*/
-    List<Label> selectRandom(int size);
+    /**随机查询标签*/
+    List<LabelVo> selectRandom(int size);
+    
+    /**添加标签*/
+    String addLabel(Label label);
+    
+    /**修改标签*/
+    String editLabel(Label label);
+    
+    /**查询所有*/
+    List<LabelVo> selectAll();
+    
+    /**查询详细*/
+    LabelVo selectById(String id);
 }
