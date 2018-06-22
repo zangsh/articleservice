@@ -1,5 +1,7 @@
 package com.czb.article.util;
 
+import com.czb.enums.ResultCode;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +14,7 @@ public class ResultUtils {
 
     private static final String CODE = "code";
     private static final int OK_CODE = 200;
-    private static final int ERROR_CODE = 500;
+    private static final int ERROR_CODE = 500000;
 
     private static final String MSG = "msg";
     private static final String OK_MSG = "操作成功！";
@@ -71,6 +73,13 @@ public class ResultUtils {
         MAP.put(CODE,code);
         MAP.put(MSG,msg);
         MAP.put(DATA,data);
+        return FastJsonUtils.mapToString(MAP);
+    }
+
+    public static String ERROR(ResultCode resultCode){
+        MAP.put(CODE,resultCode.getCode());
+        MAP.put(MSG,resultCode.getMsg());
+        MAP.put(DATA,null);
         return FastJsonUtils.mapToString(MAP);
     }
 }

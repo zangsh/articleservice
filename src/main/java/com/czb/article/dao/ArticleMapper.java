@@ -8,6 +8,13 @@ import java.util.Map;
 
 public interface ArticleMapper {
     /**
+     * 判断是否存在同样文章标题
+     * @param params
+     * @return
+     */
+    int isExistsTitle(@Param("params") Map<String,Object> params);
+
+    /**
      * 添加文章
      * @param params
      * @return
