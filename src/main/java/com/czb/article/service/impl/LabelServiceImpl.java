@@ -40,7 +40,7 @@ public class LabelServiceImpl implements LabelService{
 	}
 
 	@Override
-	public Map addLabel(Label label) {
+	public Map<String,Object> addLabel(Label label) {
 		//判断是否重复
 		Label temp = labelMapper.selectByName(label.getName());
 		if(temp!=null){
@@ -56,7 +56,7 @@ public class LabelServiceImpl implements LabelService{
 	}
 
 	@Override
-	public Map editLabel(Label label) {
+	public Map<String,Object> editLabel(Label label) {
 		if(StringUtils.isEmpty(label.getId())){
 			return ResultUtils.ERROR(ResultCode.NOT_EXIST_OBJ);
 		}
@@ -90,7 +90,7 @@ public class LabelServiceImpl implements LabelService{
 	}
 
 	@Override
-	public Map deleteById(Integer id) {
+	public Map<String,Object> deleteById(Integer id) {
 		if(StringUtils.isEmpty(id)){
 			return ResultUtils.ERROR(ResultCode.NOT_EXIST_OBJ);
 		}

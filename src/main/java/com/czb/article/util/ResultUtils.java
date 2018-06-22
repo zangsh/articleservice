@@ -26,23 +26,23 @@ public class ResultUtils {
      * 成功信息
      * @return
      */
-    public static Map OK(){
+    public static Map<String,Object> OK(){
         return OK(OK_MSG);
     }
 
-    public static Map OK(String msg){
+    public static Map<String,Object> OK(String msg){
         return OK(OK_CODE,msg,null);
     }
 
-    public static Map OK(Object data){
+    public static Map<String,Object> OK(Object data){
         return OK(OK_CODE,data);
     }
 
-    public static Map OK(int code,Object data){
+    public static Map<String,Object> OK(int code,Object data){
         return OK(code,OK_MSG,data);
     }
 
-    public static Map OK(int code,String msg,Object data){
+    public static Map<String,Object> OK(int code,String msg,Object data){
         MAP.put(CODE,code);
         MAP.put(MSG,msg);
         MAP.put(DATA,data);
@@ -53,30 +53,30 @@ public class ResultUtils {
      * 失败信息
      * @return
      */
-    public static Map ERROR(){
+    public static Map<String,Object> ERROR(){
         return ERROR(ERROR_MSG);
     }
 
-    public static Map ERROR(String msg){
+    public static Map<String,Object> ERROR(String msg){
         return ERROR(ERROR_CODE,msg,null);
     }
 
-    public static Map ERROR(Object data){
+    public static Map<String,Object> ERROR(Object data){
         return ERROR(ERROR_CODE,data);
     }
 
-    public static Map ERROR(int code,Object data){
+    public static Map<String,Object> ERROR(int code,Object data){
         return ERROR(code,ERROR_MSG,data);
     }
 
-    public static Map ERROR(int code,String msg,Object data){
+    public static Map<String,Object> ERROR(int code,String msg,Object data){
         MAP.put(CODE,code);
         MAP.put(MSG,msg);
         MAP.put(DATA,data);
         return MAP;
     }
 
-    public static Map ERROR(ResultCode resultCode){
+    public static Map<String,Object> ERROR(ResultCode resultCode){
         MAP.put(CODE,resultCode.getCode());
         MAP.put(MSG,resultCode.getMsg());
         MAP.put(DATA,null);

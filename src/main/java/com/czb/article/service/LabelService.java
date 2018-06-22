@@ -28,10 +28,10 @@ public interface LabelService {
     List<LabelVo> selectRandom(int size);
     
     /**添加标签*/
-    Map addLabel(Label label);
+    Map<String,Object> addLabel(Label label);
     
     /**修改标签*/
-    Map editLabel(Label label);
+    Map<String,Object> editLabel(Label label);
     
     /**查询所有*/
     List<LabelVo> selectAll();
@@ -40,7 +40,7 @@ public interface LabelService {
     LabelVo selectById(Integer id);
     
     /**删除标签*/
-    Map deleteById(Integer id);
+    Map<String,Object> deleteById(Integer id);
     
     /**
      * 官网分页查询标签文章
