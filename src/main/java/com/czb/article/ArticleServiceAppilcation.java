@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * enums        枚举
  * bean         实体pojo
  * config       配置
+ * common		公共
  * @author zangsh tangchen zhouxun
  * @version 0.0.1-SNAPSHOT
  */
