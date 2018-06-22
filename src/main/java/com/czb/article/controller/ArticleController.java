@@ -1,10 +1,10 @@
 package com.czb.article.controller;
 
 import com.czb.article.bean.vo.ArticleResponse;
+import com.czb.article.enums.ResultCode;
 import com.czb.article.service.ArticleService;
 import com.czb.article.util.FastJsonUtils;
 import com.czb.article.util.ResultUtils;
-import com.czb.enums.ResultCode;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

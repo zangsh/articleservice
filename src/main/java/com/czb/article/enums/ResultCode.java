@@ -1,4 +1,4 @@
-package com.czb.enums;
+package com.czb.article.enums;
 
 /**
  * 返回状态码和信息定义

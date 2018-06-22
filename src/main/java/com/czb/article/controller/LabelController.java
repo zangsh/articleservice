@@ -1,6 +1,7 @@
 package com.czb.article.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,10 +16,10 @@ import com.czb.article.bean.vo.LabelArticleVo;
 import com.czb.article.bean.vo.LabelVo;
 import com.czb.article.common.PageInfo;
 import com.czb.article.common.ValidationResult;
+import com.czb.article.enums.ResultCode;
 import com.czb.article.service.LabelService;
 import com.czb.article.util.ResultUtils;
 import com.czb.article.util.ValidationUtils;
-import com.czb.enums.ResultCode;
 import com.github.pagehelper.Page;
 
 import lombok.extern.slf4j.Slf4j;
@@ -77,9 +78,10 @@ public class LabelController {
      *          }
      * 		}
      */
+	@SuppressWarnings("rawtypes")
 	@CrossOrigin
     @RequestMapping(value = "/getLabels", method = {RequestMethod.GET})
-    public String getLabels(String name,@RequestParam(required=false,defaultValue="1")int pageNum,
+    public Map getLabels(String name,@RequestParam(required=false,defaultValue="1")int pageNum,
     		@RequestParam(required=false,defaultValue="10")int pageSize){
     	log.info("getLabels start! name:{},pageNum:{},pageSize:{}", name,pageNum,pageSize);
     	Page<LabelVo> labelVos = labelService.selectPage(name, pageNum, pageSize);
@@ -112,7 +114,7 @@ public class LabelController {
      */
 	@CrossOrigin
     @RequestMapping(value = "/getAllLabels", method = {RequestMethod.GET})
-    public String getAllLabels(){
+    public Map getAllLabels(){
     	log.info("getAllLabels start!");
     	List<LabelVo> labelVos = labelService.selectAll();
         return ResultUtils.OK(labelVos);
@@ -144,7 +146,7 @@ public class LabelController {
      */
 	@CrossOrigin
     @RequestMapping(value = "/getRandomLabels", method = {RequestMethod.GET})
-    public String getRandomLabels(@RequestParam(required=false,defaultValue="10")int size){
+    public Map getRandomLabels(@RequestParam(required=false,defaultValue="10")int size){
 		log.info("getRandomLabels start! size:{}", size);
     	List<LabelVo> list = labelService.selectRandom(size);
         return ResultUtils.OK(list);
@@ -173,7 +175,7 @@ public class LabelController {
      */
 	@CrossOrigin
     @RequestMapping(value = "/addLabel", method = {RequestMethod.POST})
-    public String addLabel(@RequestBody Label label){
+    public Map addLabel(@RequestBody Label label){
 		log.info("addLabel start! label:{}", label);
 		ValidationResult validationResult = ValidationUtils.validateEntity(label);
 		if(validationResult.isHasErrors()){
@@ -207,7 +209,7 @@ public class LabelController {
      */
 	@CrossOrigin
     @RequestMapping(value = "/editLabel", method = {RequestMethod.POST})
-    public String editLabel(@RequestBody Label label){
+    public Map editLabel(@RequestBody Label label){
 		log.info("editLabel start! label:{}", label);
 		ValidationResult validationResult = ValidationUtils.validateEntity(label);
 		if(validationResult.isHasErrors()){
@@ -240,7 +242,7 @@ public class LabelController {
      */
 	@CrossOrigin
     @RequestMapping(value = "/getLabelDetails", method = {RequestMethod.GET})
-    public String getLabelDetails(Integer id){
+    public Map getLabelDetails(Integer id){
 		log.info("getLabelDetails start! id:{}", id);
     	LabelVo labelVo = labelService.selectById(id);
         return ResultUtils.OK(labelVo);
@@ -265,7 +267,7 @@ public class LabelController {
      */
 	@CrossOrigin
     @RequestMapping(value = "/delLabel", method = {RequestMethod.GET})
-    public String delLabel(Integer id){
+    public Map delLabel(Integer id){
 		log.info("delLabel start! id:{}", id);
 		return labelService.deleteById(id);
     }
@@ -312,7 +314,7 @@ public class LabelController {
      */
 	@CrossOrigin
     @RequestMapping(value = "/getLabelArticleForPc", method = {RequestMethod.GET})
-    public String getLabelArticleForPc(Integer id,@RequestParam(required=false,defaultValue="1")int pageNum,
+    public Map getLabelArticleForPc(Integer id,@RequestParam(required=false,defaultValue="1")int pageNum,
     		@RequestParam(required=false,defaultValue="10")int pageSize){
 		log.info("getLabelArticleForPc start! id:{}, pageNum:{}, pageSize:{}", id, pageNum, pageSize);
 		Page<LabelArticleVo> labelArticleVos = labelService.selectLabelArticlePageForPc(id, pageNum, pageSize);
@@ -362,7 +364,7 @@ public class LabelController {
      */
 	@CrossOrigin
     @RequestMapping(value = "/getLabelArticleForApp", method = {RequestMethod.GET})
-    public String getLabelArticleForApp(Integer id,@RequestParam(required=false,defaultValue="1")int pageNum,
+    public Map getLabelArticleForApp(Integer id,@RequestParam(required=false,defaultValue="1")int pageNum,
     		@RequestParam(required=false,defaultValue="10")int pageSize){
 		log.info("getLabelArticleForApp start! id:{}, pageNum:{}, pageSize:{}", id, pageNum, pageSize);
 		Page<LabelArticleVo> labelArticleVos = labelService.selectLabelArticlePageForApp(id, pageNum, pageSize);

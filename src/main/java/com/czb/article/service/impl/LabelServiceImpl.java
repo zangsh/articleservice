@@ -1,6 +1,7 @@
 package com.czb.article.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,9 @@ import com.czb.article.bean.po.Label;
 import com.czb.article.bean.vo.LabelArticleVo;
 import com.czb.article.bean.vo.LabelVo;
 import com.czb.article.dao.LabelMapper;
+import com.czb.article.enums.ResultCode;
 import com.czb.article.service.LabelService;
 import com.czb.article.util.ResultUtils;
-import com.czb.enums.ResultCode;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
@@ -39,7 +40,7 @@ public class LabelServiceImpl implements LabelService{
 	}
 
 	@Override
-	public String addLabel(Label label) {
+	public Map addLabel(Label label) {
 		//判断是否重复
 		Label temp = labelMapper.selectByName(label.getName());
 		if(temp!=null){
@@ -55,7 +56,7 @@ public class LabelServiceImpl implements LabelService{
 	}
 
 	@Override
-	public String editLabel(Label label) {
+	public Map editLabel(Label label) {
 		if(StringUtils.isEmpty(label.getId())){
 			return ResultUtils.ERROR(ResultCode.NOT_EXIST_OBJ);
 		}
@@ -89,7 +90,7 @@ public class LabelServiceImpl implements LabelService{
 	}
 
 	@Override
-	public String deleteById(Integer id) {
+	public Map deleteById(Integer id) {
 		if(StringUtils.isEmpty(id)){
 			return ResultUtils.ERROR(ResultCode.NOT_EXIST_OBJ);
 		}

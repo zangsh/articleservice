@@ -1,6 +1,7 @@
 package com.czb.article.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.czb.article.bean.po.Label;
 import com.czb.article.bean.vo.LabelArticleVo;
@@ -27,10 +28,10 @@ public interface LabelService {
     List<LabelVo> selectRandom(int size);
     
     /**添加标签*/
-    String addLabel(Label label);
+    Map addLabel(Label label);
     
     /**修改标签*/
-    String editLabel(Label label);
+    Map editLabel(Label label);
     
     /**查询所有*/
     List<LabelVo> selectAll();
@@ -39,7 +40,7 @@ public interface LabelService {
     LabelVo selectById(Integer id);
     
     /**删除标签*/
-    String deleteById(Integer id);
+    Map deleteById(Integer id);
     
     /**
      * 官网分页查询标签文章

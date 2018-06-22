@@ -1,9 +1,9 @@
 package com.czb.article.util;
 
-import com.czb.enums.ResultCode;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import com.czb.article.enums.ResultCode;
 
 /**
  * 自定义响应
