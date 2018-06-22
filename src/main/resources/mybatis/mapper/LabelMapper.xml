@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.czb.article.dao.LabelMapper">
+
+	<resultMap id="BaseResultMap" type="com.czb.article.bean.po.Label">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+	</resultMap>
+
+	<resultMap id="LabelVo" type="com.czb.article.bean.vo.LabelVo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="articleCount" property="articleCount" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap id="LabelArticleVo" type="com.czb.article.bean.vo.LabelArticleVo">
+		<result column="labelId" property="labelId" jdbcType="VARCHAR" />
+		<result column="articleId" property="articleId" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="digest" property="digest" jdbcType="VARCHAR" />
+		<result column="imageAddr" property="imageAddr" jdbcType="VARCHAR" />
+		<result column="keywords" property="keywords" jdbcType="VARCHAR" />
+		<result column="goLiveTime" property="goLiveTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		update article_label set delete_flag = 1 where id =
+		#{id,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="com.czb.article.bean.po.Label">
+		insert into article_label (id, `name`,
+		create_user, create_time, update_user,
+		update_time, delete_flag)
+		values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{createUser,jdbcType=VARCHAR}, now(), #{updateUser,jdbcType=VARCHAR},
+		now(), 0)
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="com.czb.article.bean.po.Label">
+		update article_label
+		set `name` = #{name,jdbcType=VARCHAR},
+		update_user = #{updateUser,jdbcType=VARCHAR},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select id, `name`, create_user, create_time, update_user, update_time,
+		delete_flag
+		from article_label
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select id, `name`, create_user, create_time, update_user, update_time,
+		delete_flag
+		from article_label
+		where delete_flag = 0
+		order by create_time
+	</select>
+
+	<select id="selectPage" resultType="LabelVo" parameterType="java.lang.String">
+		select al.id, al.`name`, al.create_time as createTime, count(ala.id) as articlecount
+		from article_label al
+		left join article_label_article ala on al.id = ala.label_id
+		left join article_article aa on ala.article_id = aa.id
+		where al.delete_flag = 0
+		and (ala.delete_flag = 0 or ala.delete_flag is null)
+		and (aa.delete_flag = 0 or aa.delete_flag is null)
+		<if test="name != null and name != ''">
+			and al.`name` like concat(concat('%',#{name},'%'))
+		</if>
+		group by al.id
+		order by al.create_time desc
+	</select>
+
+	<select id="selectRandom" resultMap="LabelVo" parameterType="java.lang.Integer">
+		select id, `name`, create_time as createTime
+		from `article_label`
+		order by rand() limit #{size}
+	</select>
+	
+	<select id="selectByName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select id, `name`, create_user, create_time, update_user, update_time,
+		delete_flag
+		from article_label
+		where name = #{name,jdbcType=VARCHAR}
+		and delete_flag = 0
+	</select>
+	
+	<select id="selectLabelArticleCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select 1 
+		from article_label_article 
+		where label_id = #{id,jdbcType=VARCHAR} 
+		and delete_flag = 0
+	</select>
+	
+	<select id="selectLabelArticlePageForPc" resultType="LabelArticleVo" parameterType="java.lang.String">
+		select
+			ala.label_id as labelId,
+			ala.article_id as articleId,
+			aa.title,
+			aa.digest,
+			aa.image_addr as imageAddr,
+			aa.keywords
+		from article_label_article ala
+		left join article_article aa on ala.article_id = aa.id
+		where ala.delete_flag = 0
+		and aa.delete_flag = 0
+		and ala.label_id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectLabelArticlePageForApp" resultType="LabelArticleVo" parameterType="java.lang.String">
+		select
+			ala.label_id as labelId,
+			ala.article_id as articleId,
+			aa.title,
+			aa.digest,
+			aa.image_addr as imageAddr,
+			aa.keywords
+		from article_label_article ala
+		left join article_article aa on ala.article_id = aa.id
+		where ala.delete_flag = 0
+		and aa.delete_flag = 0
+		and ala.label_id = #{id,jdbcType=VARCHAR}
+	</select>
+</mapper>

@@ -134,6 +134,13 @@
             <version>${swagger2.version}</version>
         </dependency>
         <!-- swagger2 end -->
+        
+        <!-- java validation start -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <!-- java validation end -->
     </dependencies>
 
     <build>
@@ -163,7 +170,7 @@
 	                    <!-- generator 工具配置文件的位置 -->
 	                    <configurationFile>src/main/resources/mybatis-generator/generatorConfig.xml</configurationFile>
 	                    <verbose>true</verbose>
-	                    <overwrite>false</overwrite>
+	                    <overwrite>true</overwrite>
 	                </configuration>
 	                <dependencies>
 	                    <dependency>
